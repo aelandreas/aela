@@ -1,38 +1,175 @@
-.App {
+html {
+  min-height: 100%;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  text-align: center;
+  padding: 50px;
+  background-color: #8ee094;
+  color: #001f3f;
+  font-family: Helvetica, Sans-serif;
+  min-height: 100%;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+h1 {
+  font-weight: 700;
+  grid-column: span 4;
+}
+
+.container {
+ gap: 30px;
+ display: grid;
+ justify-content: center;
+ align-items: center;
+}
+
+.neu {
+border-radius: 50px;
+background: #8ee094;
+box-shadow:  12px 12px 24px #76ba7b,
+             -12px -12px 24px #a6ffad;
+}
+
+button:active.neu{
+border-radius: 50px;
+background: #8ee094;
+box-shadow:  2px 2px 5px #76ba7b,
+             -2px -2px 5px #a6ffad;
+}
+
+.card {
+  height: 180px;
+  width: 180px;
+  padding: 20px;
+  display: grid;
+  align-items: center;
+  transition: all .2s linear;
+}
+
+.card.selected {
+box-shadow:  2px 2px 5px #76ba7b,
+             -2px -2px 5px #a6ffad;
+}
+
+.card:hover {
+box-shadow:  2px 2px 5px #76ba7b,
+             -2px -2px 5px #a6ffad;
+}
+
+.card-header {
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0;
+}
+.card-text {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.inputs {
+  grid-column: span 3;
+  padding: 10px 20px 20px 20px;
+  max-width: 900px;
+   transition: all 2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.inputs:hover.neu.loading{
+  border-radius: 50px;
+background: #8ee094;
+box-shadow:  2px 2px 5px #76ba7b,
+             -2px -2px 5px #a6ffad;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.input {
+  text-align: center;
+ line-height: 28px;
+ border: 2px solid transparent;
+ border-bottom-color: #777;
+ padding: .2rem 0;
+ outline: none;
+ background-color: transparent;
+ color: #0d0c22;
+ transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.App-link {
-  color: #61dafb;
+.input:focus, input:hover {
+ outline: none;
+ padding: .2rem 1rem;
+ border-radius: 1rem;
+ border-bottom-color: #7a9cc6;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input::placeholder {
+ color: #777;
+}
+
+.input:focus::placeholder {
+ opacity: 0;
+ transition: opacity .3s;
+}
+
+/* From uiverse.io by @Cevorob */
+button {
+ position: relative;
+ height: 50px;
+ padding: 0 30px;
+ border:none;
+background-color: #8ee094;
+  user-select: none;
+ white-space: nowrap;
+ transition: all .05s linear;
+ font-family: inherit;
+}
+
+button:before, button:after {
+ content: "";
+ position: absolute;
+ background-color: #8ee094;
+ transition: all .2s linear;
+ 
+}
+
+
+button:hover {
+ cursor: pointer;
+}
+
+button:active {
+ transform: scale(0.95);
+}
+
+button:hover:before {
+ height: calc(100% - 32px);
+ top: 16px;
+}
+
+button:hover:after {
+ width: calc(100% - 32px);
+ left: 16px;
+}
+
+button span {
+ font-size: 15px;
+ z-index: 3;
+ position: relative;
+ font-weight: 600;
+}
+
+.results {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
