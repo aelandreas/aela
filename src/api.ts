@@ -333,8 +333,8 @@ export const SetSelf = async (nickname: string) => {
   }
 };
 
-export const GetGamers = async () => {
-  return await user_store.entries<Gamer>();
+export const GetGamers = () => {
+  return user_store.entries<Gamer>();
 };
 
 export const GetFaceitIdByName = async (
