@@ -32,9 +32,13 @@ const DidWePlay: React.FC = () => {
     },
   });
 
-  const { data: allPlayers } = useQuery(['players'], GetGamers, {
-    enabled: self !== null && self !== undefined,
-    refetchOnWindowFocus: false,
+  const {
+    data: allPlayers,
+    isLoading,
+    isFetching,
+    isIdle,
+  } = useQuery(['players'], GetGamers, {
+    refetchOnWindowFocus: true,
   });
 
   const GetMatchesInCommon = (player: Gamer) => {
@@ -77,28 +81,34 @@ const DidWePlay: React.FC = () => {
   }, [selectedPlayers]);
 
   return (
-    <div className="container">
-      {!self && (
-        <>
+    <>
+      <div className="panel">
+        <h1>Control panel</h1>
+        <div className="analyze">
           <input
             className="input neu"
             type="text"
             placeholder="Write your faceit nickname"
             onChange={(e) => input.setText(e.target.value)}
-            disabled={updating}
+            disabled={isLoading || isFetching}
+            defaultValue={self?.name}
           />
+          {self && <p>{self.friendIds.length} FaceIT friends</p>}
+          {self && <p>{self.id}</p>}
           <button
             className={'neu' + (updating ? ' loading' : ' ')}
             onClick={() => updateSelf(input.text)}
-            disabled={updating}
+            disabled={isLoading || isFetching}
           >
-            <span>Analyze</span>
+            {isLoading || isFetching
+              ? 'Fetching a lot of data... This might take a while'
+              : 'Update'}
           </button>
-        </>
-      )}
-      {self && (
-        <div className="results" ref={parent}>
-          {!allPlayers && <Card header="Loading..."></Card>}
+        </div>
+      </div>
+      <div className="panel">
+        <h1>Selected players</h1>
+        <div className="players" ref={parent}>
           {selectedPlayers.length > 0 &&
             selectedPlayers.map((player) => (
               <PlayerStats
@@ -115,7 +125,16 @@ const DidWePlay: React.FC = () => {
                 showCurrentElo={false}
               />
             ))}
-          {allPlayers &&
+        </div>
+      </div>
+      <div className="panel" ref={parent}>
+        <h1>Players</h1>
+        <p>These players have matches in common with the selected players.</p>
+        {(isLoading || isFetching) && <Card header="Loading..."></Card>}
+        {isIdle && !allPlayers && <Card header="No players.."></Card>}
+        <div className="players">
+          {self &&
+            allPlayers &&
             allPlayers
               .filter(
                 (player) =>
@@ -138,8 +157,8 @@ const DidWePlay: React.FC = () => {
                 />
               ))}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
