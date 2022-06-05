@@ -90,7 +90,7 @@ const DidWePlay: React.FC = () => {
             type="text"
             placeholder="Write your faceit nickname"
             onChange={(e) => input.setText(e.target.value)}
-            disabled={updating}
+            disabled={isLoading || isFetching}
             defaultValue={self?.name}
           />
           {self && <p>{self.friendIds.length} FaceIT friends</p>}
@@ -98,9 +98,11 @@ const DidWePlay: React.FC = () => {
           <button
             className={'neu' + (updating ? ' loading' : ' ')}
             onClick={() => updateSelf(input.text)}
-            disabled={updating}
+            disabled={isLoading || isFetching}
           >
-            analyze
+            {isLoading || isFetching
+              ? 'Fetching a lot of data... This might take a while'
+              : 'Update'}
           </button>
         </div>
       </div>
